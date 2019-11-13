@@ -420,7 +420,7 @@ init_sdl(void)
                               SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               m_width.value(),
                               m_height.value(),
-                              video_flags);
+                              video_flags | SDL_WINDOW_ALLOW_HIGHDPI);
 
   if (m_window == nullptr)
     {
@@ -433,7 +433,7 @@ init_sdl(void)
       int w, h;
       bool is_fullscreen;
       is_fullscreen = (SDL_GetWindowFlags(m_window) & SDL_WINDOW_FULLSCREEN) != 0;
-      SDL_GetWindowSize(m_window, &w, &h);
+      SDL_GL_GetDrawableSize(m_window, &w, &h);
       if (w != m_width.value() || h != m_height.value() || is_fullscreen != m_fullscreen.value())
         {
           std::cerr << "\nDimensions did not match and required to match\n";
@@ -569,7 +569,7 @@ main(int argc, char **argv)
     }
 
   m_run_demo = true;
-  SDL_GetWindowSize(m_window, &w, &h);
+  SDL_GL_GetDrawableSize(m_window, &w, &h);
   init_gl(w, h);
 
   num_frames = 0;
@@ -595,7 +595,7 @@ main(int argc, char **argv)
                 {
                   int w, h;
                   FASTUIDRAWassert(m_window);
-                  SDL_GetWindowSize(m_window, &w, &h);
+                  SDL_GL_GetDrawableSize(m_window, &w, &h);
                   reverse_y_of_sdl_event(h, ev);
                 }
               handle_event(ev);
@@ -628,6 +628,6 @@ dimensions(void)
   fastuidraw::ivec2 return_value;
 
   FASTUIDRAWassert(m_window);
-  SDL_GetWindowSize(m_window, &return_value.x(), &return_value.y());
+  SDL_GL_GetDrawableSize(m_window, &return_value.x(), &return_value.y());
   return return_value;
 }

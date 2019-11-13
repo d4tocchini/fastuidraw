@@ -77,7 +77,7 @@ init_sdl(void)
                               SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                               window_width,
                               window_height,
-                              SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+                              SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
 
   if (m_window == nullptr)
     {
@@ -213,7 +213,8 @@ window_dimensions(void)
   FASTUIDRAWassert(m_demo_runner);
   FASTUIDRAWassert(m_demo_runner->m_demo == this);
   FASTUIDRAWassert(m_demo_runner->m_window);
-  SDL_GetWindowSize(m_demo_runner->m_window, &return_value.x(), &return_value.y());
+  // SDL_GetWindowSize(m_demo_runner->m_window, &return_value.x(), &return_value.y());
+  SDL_GL_GetDrawableSize(m_demo_runner->m_window, &return_value.x(), &return_value.y());
   return return_value;
 }
 

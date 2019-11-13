@@ -101,7 +101,10 @@ handle_event(const SDL_Event &ev)
            * interface will automacially delete the underlying
            * PainterSurfaceGL that we had made earlier
            */
-          fastuidraw::ivec2 new_dims(ev.window.data1,ev.window.data2);
+          int w, h;
+          SDL_GL_GetDrawableSize(SDL_GetWindowFromID(ev.window.windowID), &w, &h);
+          fastuidraw::ivec2 new_dims(w, h);
+          // fastuidraw::ivec2 new_dims(ev.window.data1, ev.window.data2);
           m_surface_gl = FASTUIDRAWnew fastuidraw::gl::PainterSurfaceGL(new_dims, *m_painter_engine_gl);
         }
       break;

@@ -211,6 +211,8 @@ draw_frame(void)
   fastuidraw_glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
   fastuidraw_glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
   m_surface_gl->blit_surface(GL_NEAREST);
+
+  m_translate.y() -= 2.0f;
 }
 
 void
@@ -223,11 +225,13 @@ handle_event(const SDL_Event &ev)
       switch (ev.key.keysym.sym)
         {
         case SDLK_UP:
-          m_translate.y() += 16.0f;
+          // m_translate.y() += 16.0f;
+          m_scale += 0.2f;
           break;
 
         case SDLK_DOWN:
-          m_translate.y() -= 16.0f;
+          // m_translate.y() -= 16.0f;
+          m_scale -= 0.2f;
           break;
 
         case SDLK_LEFT:
